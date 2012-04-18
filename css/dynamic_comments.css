@@ -1,11 +1,9 @@
 .dynamic-comments-content {
-
   line-height: 250%;
 
 }
 
 .dynamic-comments-sidebar {
-
   height: 100%;
   overflow: auto;
   position: fixed;
@@ -17,37 +15,31 @@
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.visible,
 .dynamic-comments-sidebar .dynamic-comments-sidebar-inner {
-
   padding: 10px;
 
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages {
-
   border: none;
 
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.status {
-
   background-color: #f2fbe8;
 
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.warning {
-
   background-color: #fffcee;
 
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.error {
-
   background-color: #fae9e9;
 
 }
 
 .dynamic-comments-comment {
-
   background-color: rgba(252, 243, 212, 0.9);
   -moz-box-shadow: 0 0 1px 1px #ccc;
   -webkit-box-shadow: 0 0 1px 1px #ccc;
@@ -59,13 +51,11 @@
 }
 
 .dynamic-comments-comment.resolved {
-
   background-color: rgba(168, 214, 149, 0.9);
 
 }
 
 .dynamic-comments-comment.nested-child {
-
   background-image: url('../images/reply.png');
   background-position: 5px 10px;
   background-repeat: no-repeat;
@@ -76,7 +66,6 @@
 
 .dynamic-comments-comment:hover,
 .dynamic-comments-comment.active {
-
   background-color: rgba(249, 237, 190, 1);
   color: #000;
 
@@ -84,20 +73,17 @@
 
 .dynamic-comments-comment.resolved:hover,
 .dynamic-comments-comment.resolved.active {
-
   background-color: rgba(141, 196, 120, 1);
   color: #000;
 
 }
 
 .dynamic-comments-comment + .dynamic-comments-comment {
-
   margin-top: 10px;
 
 }
 
 .dynamic-comments-comment .comment-delete {
-
   cursor: pointer;
   position: absolute;
   right: 5px;
@@ -106,7 +92,6 @@
 }
 
 .dynamic-comments-comment .resolve-comment-button {
-
   cursor: pointer;
   position: absolute;
   right: 19px;
@@ -115,7 +100,6 @@
 }
 
 .dynamic-comments-comment .resolved-comment {
-
   color: #5b9145;
   position: absolute;
   right: 22px;
@@ -124,20 +108,17 @@
 }
 
 .dynamic-comments-comment .dynamic-comments-comment-user .user-picture {
-
   margin: 0 5px 0 0;
   width: 25px;
 
 }
 
 .dynamic-comments-comment .dynamic-comments-comment-user .user-name {
-
   font-weight: 300;
 
 }
 
 .dynamic-comments-window {
-
   background-color: rgba(249,237,190, 1);
   -moz-box-shadow: 0 0 1px 1px #ccc;
   -webkit-box-shadow: 0 0 1px 1px #ccc;
@@ -148,7 +129,6 @@
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner {
-
   overflow: auto;
   padding: 10px 10px 15px 10px;
   position: relative;
@@ -156,7 +136,6 @@
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .post-comment-text {
-
   border-radius: 0;
   border: 1px solid #eaeaea;
   -moz-box-shadow: inset 0 0 5px #ccc;
@@ -167,7 +146,6 @@
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .window-close {
-
   cursor: pointer;
   position: absolute;
   right: 10px;
@@ -176,7 +154,6 @@
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .post-comment-button {
-
   background: #ccc;
   clear: right;
   cursor: pointer;
@@ -187,7 +164,6 @@
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window {
-
   background-color: transparent;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
@@ -198,13 +174,11 @@
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window .dynamic-comments-window-inner {
-
   padding: 0;
 
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window .dynamic-comments-window-inner .window-close {
-
   background: #ccc;
   cursor: pointer;
   float: right;
@@ -220,14 +194,12 @@
 }
 
 .comment-highlighted {
-
   color: #b20000;
   text-decoration: underline;
 
 }
 
 .dynamic-comments-icons .dynamic-comments-comment-icon {
-
   background-image: url('../images/comment_icon.png');
   background-repeat: no-repeat;
   cursor: pointer;
@@ -240,14 +212,12 @@
 }
 
 .dynamic-comments-icons .dynamic-comments-comment-icon.active {
-
   background-image: url('../images/comment_icon_active.png');
 
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .window-close,
 .dynamic-comments-comment .comment-delete {
-
   background-image: url('../images/message-dismiss.png');
   background-repeat: no-repeat;
   text-indent: -9999px;
@@ -256,7 +226,6 @@
 }
 
 .dynamic-comments-comment .resolve-comment-button {
-
   background-image: url('../images/message-status-sm.png');
   background-repeat: no-repeat;
   height: 12px;
@@ -266,7 +235,6 @@
 }
 
 .dynamic-comments-comment .reply-comment-button {
-
   background-image: url('../images/reply_small.png');
   background-repeat: no-repeat;
   padding: 0 0 0 18px;
