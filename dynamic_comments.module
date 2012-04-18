@@ -6,7 +6,7 @@
  * on any given node and make comments on the selection.
  */
 
-/*
+/**
  * Implementation of hook_menu
  *
  */
@@ -31,7 +31,7 @@ function dynamic_comments_menu() {
   return $items;
 }
 
-/*
+/**
  * Implementation of hook_perm
  *
  */
@@ -45,7 +45,7 @@ function dynamic_comments_perm() {
   );
 }
 
-/*
+/**
  * Implementation of hook_nodeapi
  *
  */

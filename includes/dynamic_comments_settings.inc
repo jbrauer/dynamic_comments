@@ -1,12 +1,16 @@
 <?php
 
 /**
+ * @file
+ * Settings file for Dynamic Comments.
+ */
+
+/**
  * Form callback for admin section
- *
  */
 function dynamic_comments_settings() {
 
-  // check if libraries have been installed.
+  // Check if libraries have been installed.
   $files_missing = array();
   $files_to_check = array(
     'rangy-core.js' => './sites/all/libraries/rangy/rangy-core.js',
@@ -33,7 +37,7 @@ function dynamic_comments_settings() {
 
     $message .= '</ul>';
 
-    // display an error message prompting admin to install the required libraries.
+    // Display an error message prompting admin to install the required libraries.
     drupal_set_message($message, 'error');
   }
 
@@ -50,7 +54,7 @@ function dynamic_comments_settings_form() {
     '#title' => t('Nodes types that will display Dynamic Comments'),
     '#default_value' => variable_get('dynamic_comments_node_types', NULL),
     '#options' => $types,
-    '#description' => t('Select what node types will display Dynamic Comments')
+    '#description' => t('Select what node types will display Dynamic Comments'),
   );
 
   $form['dynamic_comments_interval'] = array(
@@ -58,12 +62,12 @@ function dynamic_comments_settings_form() {
     '#title' => t('Auto refresh interval'),
     '#default_value' => variable_get('dynamic_comments_interval', 30000),
     '#options' => array(
-        '0' => 'No auto refresh',
-        '5000' => 'Refresh every 5 seconds',
-        '10000' => 'Refresh every 10 seconds',
-        '15000' => 'Refresh every 15 seconds',
-        '30000' => 'Refresh every 30 seconds',
-        '60000' => 'Refresh every 60 seconds',
+      '0' => 'No auto refresh',
+      '5000' => 'Refresh every 5 seconds',
+      '10000' => 'Refresh every 10 seconds',
+      '15000' => 'Refresh every 15 seconds',
+      '30000' => 'Refresh every 30 seconds',
+      '60000' => 'Refresh every 60 seconds',
     ),
     '#description' => t('Select the interval for Dynamic Comments to query the database for new comments'),
   );
@@ -85,7 +89,7 @@ function dynamic_comments_settings_form() {
   return system_settings_form($form);
 }
 
-/*
+/**
  * HELPER FUNCTIONS
  *
  */

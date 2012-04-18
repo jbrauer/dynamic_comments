@@ -1,6 +1,5 @@
 .dynamic-comments-content {
   line-height: 250%;
-
 }
 
 .dynamic-comments-sidebar {
@@ -10,33 +9,27 @@
   right: 0;
   top: 0;
   width: 240px;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.visible,
 .dynamic-comments-sidebar .dynamic-comments-sidebar-inner {
   padding: 10px;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages {
   border: none;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.status {
   background-color: #f2fbe8;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.warning {
   background-color: #fffcee;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.error {
   background-color: #fae9e9;
-
 }
 
 .dynamic-comments-comment {
@@ -47,12 +40,10 @@
   cursor: pointer;
   padding: 5px 15px 5px 5px;
   position: relative;
-
 }
 
 .dynamic-comments-comment.resolved {
   background-color: rgba(168, 214, 149, 0.9);
-
 }
 
 .dynamic-comments-comment.nested-child {
@@ -61,26 +52,22 @@
   background-repeat: no-repeat;
   padding-left: 15%;
   width:auto;
-
 }
 
 .dynamic-comments-comment:hover,
 .dynamic-comments-comment.active {
   background-color: rgba(249, 237, 190, 1);
   color: #000;
-
 }
 
 .dynamic-comments-comment.resolved:hover,
 .dynamic-comments-comment.resolved.active {
   background-color: rgba(141, 196, 120, 1);
   color: #000;
-
 }
 
 .dynamic-comments-comment + .dynamic-comments-comment {
   margin-top: 10px;
-
 }
 
 .dynamic-comments-comment .comment-delete {
@@ -88,7 +75,6 @@
   position: absolute;
   right: 5px;
   top: 5px;
-
 }
 
 .dynamic-comments-comment .resolve-comment-button {
@@ -96,7 +82,6 @@
   position: absolute;
   right: 19px;
   top: 5px;
-
 }
 
 .dynamic-comments-comment .resolved-comment {
@@ -104,18 +89,15 @@
   position: absolute;
   right: 22px;
   top: 3px;
-
 }
 
 .dynamic-comments-comment .dynamic-comments-comment-user .user-picture {
   margin: 0 5px 0 0;
   width: 25px;
-
 }
 
 .dynamic-comments-comment .dynamic-comments-comment-user .user-name {
   font-weight: 300;
-
 }
 
 .dynamic-comments-window {
@@ -125,14 +107,12 @@
   box-shadow: 0 0 1px 1px #ccc;
   width: 200px;
   z-index: 100;
-
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner {
   overflow: auto;
   padding: 10px 10px 15px 10px;
   position: relative;
-
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .post-comment-text {
@@ -142,7 +122,6 @@
   -webkit-box-shadow: inset 0 0 5px #ccc;
   box-shadow: inner 0 0 5px #ccc;
   margin-top: 5px;
-
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .window-close {
@@ -150,7 +129,6 @@
   position: absolute;
   right: 10px;
   top: 10px;
-
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .post-comment-button {
@@ -160,7 +138,6 @@
   float: right;
   margin-top: 5px;
   padding: 0 10px;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window {
@@ -170,12 +147,10 @@
   box-shadow: none;
   width: auto;
   z-index: 100;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window .dynamic-comments-window-inner {
   padding: 0;
-
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window .dynamic-comments-window-inner .window-close {
@@ -190,13 +165,11 @@
   text-indent: 0px;
   top: 0;
   width: auto;
-
 }
 
 .comment-highlighted {
   color: #b20000;
   text-decoration: underline;
-
 }
 
 .dynamic-comments-icons .dynamic-comments-comment-icon {
@@ -208,12 +181,10 @@
   margin-top: -12px;
   text-indent: -9999px;
   width: 13px;
-
 }
 
 .dynamic-comments-icons .dynamic-comments-comment-icon.active {
   background-image: url('../images/comment_icon_active.png');
-
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .window-close,
@@ -222,7 +193,6 @@
   background-repeat: no-repeat;
   text-indent: -9999px;
   width: 12px;
-
 }
 
 .dynamic-comments-comment .resolve-comment-button {
@@ -231,7 +201,6 @@
   height: 12px;
   text-indent: -9999px;
   width: 16px;
-
 }
 
 .dynamic-comments-comment .reply-comment-button {
@@ -239,5 +208,4 @@
   background-repeat: no-repeat;
   padding: 0 0 0 18px;
   width: 32px;
-
 }

@@ -3,28 +3,25 @@
 /**
  * @file
  * Post handler file for Dynamic Comments.
- * 
  */
 
 /**
  * Custom function
- * 
  */
-
 function dynamic_comments_post_handler() {
 
-  // Check token and return an access denied if it doesn't validate
+  // Check token and return an access denied if it doesn't validate.
   if (!drupal_valid_token($_POST['token'])) {
 
     return drupal_access_denied();
   }
 
-  // Validate if nid is numeric as an added security measure
+  // Validate if nid is numeric as an added security measure.
   if (!is_numeric($_POST['nid'])) {
     return drupal_access_denied();
   }
 
-  // Get action from POST
+  // Get action from POST.
   switch (filter_xss($_POST['action'])) {
 
     case 'insert' :
@@ -72,7 +69,7 @@ function dynamic_comments_post_handler() {
 
         $user = user_load($comment->uid);
 
-        // In case user pic isn't set, we provide a module default one
+        // In case user pic isn't set, we provide a module default one.
         if ($user->picture == '') {
           $user->picture = drupal_get_path('module', 'dynamic_comments') . '/images/silhouette.gif';
         }
@@ -105,11 +102,10 @@ function dynamic_comments_post_handler() {
       /*
        * Just for kicks, let's check that the user being sent from the JS actually
        * is the current user performing this ;)
-       * 
        */
       if (filter_xss($_POST['user']) == $user->uid) {
 
-        // Also check if the permission has been granted
+        // Also check if the permission has been granted.
         if (user_access('delete single comments')) {
 
           $data = array(
@@ -119,20 +115,20 @@ function dynamic_comments_post_handler() {
             'parent'  => $_POST['parent'],
           );
 
-          // Cast to int to avoid errors
+          // Cast to int to avoid errors.
           if ((int) $data['parent'] == 0) {
 
-            // First run query on parents then on child comments
+            // First run query on parents then on child comments.
             $query_1 = db_query('DELETE FROM {dynamic_comments_comments} WHERE cid = %d', $data['comment']);
             $query_2 = db_query('DELETE FROM {dynamic_comments_comments} WHERE parent = %d', $data['comment']);
 
-            // Both queries have to come back as true to return a true result
+            // Both queries have to come back as true to return a true result.
             if ($query_1 && $query_2) {
               $result = TRUE;
             }
           }
 
-          // Not a parent comment, just erase
+          // Not a parent comment, just erase.
           else {
 
             $result = db_query('DELETE FROM {dynamic_comments_comments} WHERE cid = %d', $data['comment']);
@@ -167,11 +163,10 @@ function dynamic_comments_post_handler() {
       /*
        * Just for kicks, let's check that the user being sent from the JS actually
        * is the current user performing this ;)
-       * 
        */
       if (filter_xss($_POST['user']) == $user->uid) {
 
-        // Also check if the permission has been granted
+        // Also check if the permission has been granted.
         if (user_access('resolve comments')) {
 
           $data = array(

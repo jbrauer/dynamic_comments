@@ -2,13 +2,11 @@
 
 /**
  * @file
- * Install file for Dynamic Comments.
- * 
+ * Install file for Dynamic Comments. 
  */
 
 /**
  * Implements hook_permission().
- *
  */
 function dynamic_comments_schema() {
 
@@ -45,7 +43,7 @@ function dynamic_comments_schema() {
         'size' => 'medium',
         'default' => '',
       ),
-        'uid' => array(
+      'uid' => array(
         'description' => 'User posting the comment.',
         'type' => 'int',
         'unsigned' => TRUE,
@@ -71,11 +69,17 @@ function dynamic_comments_schema() {
 
 }
 
+/**
+ * Implementation of hook_install().
+ */
 function dynamic_comments_install() {
 
   drupal_install_schema('dynamic_comments');
 }
 
+/**
+ * Implementation of hook_uninstall().
+ */
 function dynamic_comments_uninstall() {
 
   drupal_uninstall_schema('dynamic_comments');
