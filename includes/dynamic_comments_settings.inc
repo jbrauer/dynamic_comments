@@ -29,8 +29,10 @@ function dynamic_comments_settings() {
 
   if (!empty($files_missing)) {
 
-    $message = t('Dynamic Messages is missing some files. Please install:<ul>');
+    $message = t('Dynamic Messages is missing some files. Please install:');
 
+    $message .= '<ul>';
+    
     foreach ($files_missing as $file_name => $file_path) {
       $message .= '<li>' . $file_name . ' in the path ' . $file_path . '</li>';
     }
