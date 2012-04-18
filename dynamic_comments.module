@@ -7,8 +7,7 @@
  */
 
 /**
- * Implementation of hook_menu
- *
+ * Implements hook_menu().
  */
 function dynamic_comments_menu() {
 
@@ -32,8 +31,7 @@ function dynamic_comments_menu() {
 }
 
 /**
- * Implementation of hook_perm
- *
+ * Implements hook_perm().
  */
 function dynamic_comments_perm() {
 
@@ -46,24 +44,23 @@ function dynamic_comments_perm() {
 }
 
 /**
- * Implementation of hook_nodeapi
- *
+ * Implements hook_nodeapi().
  */
 function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
   switch ($op) {
 
-    case 'view' :
-      // Check current user's role and permissions to this review
+    case 'view':
+      // Check current user's role and permissions to this review.
       if (user_access('use Dynamic Comments')) {
 
         // Get settings allowed node types
         $allowed_types = variable_get('dynamic_comments_node_types', NULL);
 
-        // Add js libraries, settings, etc only if this node type is in the settings
+        // Add js libraries, settings, etc only if this node type is in the settings.
         if (is_array($allowed_types) && in_array($node->type, $allowed_types, TRUE)) {
 
-          // Execute following code if user is a reviewer or if the setting isn't set in the admin page
+          // Execute following code if user is a reviewer or if the setting isn't set in the admin page.
           global $user;
           $reviewer = _dynamic_comments_is_reviewer($node, $user);
 
@@ -75,7 +72,7 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
               global $base_url;
 
-              // Adding rangy libraries
+              // Adding rangy libraries.
               if (file_exists('./sites/all/libraries/rangy')) {
 
                 $rangy_path = 'sites/all/libraries/rangy';
@@ -84,7 +81,7 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
                 drupal_add_js($rangy_path . '/rangy-cssclassapplier.js');
               }
 
-              // Adding scrollTo libraries
+              // Adding scrollTo libraries.
               if (file_exists('./sites/all/libraries/jquery.scrollTo')) {
 
                 $scrollto_path = 'sites/all/libraries/jquery.scrollTo';
@@ -121,7 +118,7 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
 function _dynamic_comments_is_reviewer($node, $user) {
 
-  // User reference check
+  // User reference check.
   $using_user_reference = variable_get('dynamic_comments_user_reference_field', NULL);
 
   if ($using_user_reference != '') {
@@ -134,12 +131,12 @@ function _dynamic_comments_is_reviewer($node, $user) {
       $authorized_reviewers[] = $ref['uid'];
     }
 
-    // Push the node author into the authorized reviewers array also
+    // Push the node author into the authorized reviewers array also.
     if (!in_array($node->uid, $authorized_reviewers)) {
       $authorized_reviewers[] = $node->uid;
     }
 
-    // Check if current user is in array
+    // Check if current user is in array.
     if (in_array($user->uid, $authorized_reviewers)) {
       return $authorized_reviewers;
     }

@@ -24,8 +24,7 @@ function dynamic_comments_post_handler() {
   // Get action from POST.
   switch (filter_xss($_POST['action'])) {
 
-    case 'insert' :
-
+    case 'insert':
       $data = array(
         'nid'            => $_POST['nid'],
         'comment_body'   => $_POST['comment'],
@@ -53,8 +52,7 @@ function dynamic_comments_post_handler() {
 
       break;
 
-    case 'retrieve' :
-
+    case 'retrieve':
       $json_return = array();
 
       $data = array(
@@ -95,8 +93,7 @@ function dynamic_comments_post_handler() {
 
       break;
 
-    case 'delete' :
-
+    case 'delete':
       global $user;
 
       /*
@@ -157,7 +154,7 @@ function dynamic_comments_post_handler() {
 
       break;
 
-    case 'update' :
+    case 'update':
       global $user;
 
       /*

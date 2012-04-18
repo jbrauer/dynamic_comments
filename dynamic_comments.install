@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install file for Dynamic Comments. 
+ * Install file for Dynamic Comments.
  */
 
 /**
@@ -70,7 +70,7 @@ function dynamic_comments_schema() {
 }
 
 /**
- * Implementation of hook_install().
+ * Implements hook_install().
  */
 function dynamic_comments_install() {
 
@@ -78,7 +78,7 @@ function dynamic_comments_install() {
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function dynamic_comments_uninstall() {
 

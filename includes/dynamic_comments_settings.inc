@@ -44,6 +44,9 @@ function dynamic_comments_settings() {
   return drupal_get_form('dynamic_comments_settings_form');
 }
 
+/**
+ * Implements hook_form().
+ */
 function dynamic_comments_settings_form() {
 
   // Get current types.
@@ -90,12 +93,14 @@ function dynamic_comments_settings_form() {
 }
 
 /**
- * HELPER FUNCTIONS
- *
+ * HELPER FUNCTIONS.
  */
 
 // Return node types in this site.
 // (separated function just to keep this whole thing organized).
+/**
+ * Custom function.
+ */
 function _dynamic_comments_get_types() {
 
   $types = array();
