@@ -1,217 +1,275 @@
-body.dynamic-comments-sidebar-active {
-  /*margin-right: 240px;*/
-}
-
 .dynamic-comments-content {
+
   line-height: 250%;
+
 }
 
 .dynamic-comments-sidebar {
-  width: 240px;
-  position: fixed;
-  top: 0;
-  right: 0;
+
   height: 100%;
   overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 240px;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.visible,
 .dynamic-comments-sidebar .dynamic-comments-sidebar-inner {
+
   padding: 10px;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages {
+
   border: none;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.status {
-  background-color: #F2FBE8;
+
+  background-color: #f2fbe8;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.warning {
-  background-color: #FFFCEE;
+
+  background-color: #fffcee;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-sidebar-messages.error {
-  background-color: #FAE9E9;
+
+  background-color: #fae9e9;
+
 }
 
 .dynamic-comments-comment {
-  /* the yellow I want is #F9EDBE */
+
   background-color: rgba(252, 243, 212, 0.9);
   -moz-box-shadow: 0 0 1px 1px #ccc;
   -webkit-box-shadow: 0 0 1px 1px #ccc;
   box-shadow: 0 0 1px 1px #ccc;
+  cursor: pointer;
   padding: 5px 15px 5px 5px;
   position: relative;
-  cursor: pointer;
+
 }
 
 .dynamic-comments-comment.resolved {
+
   background-color: rgba(168, 214, 149, 0.9);
+
 }
 
 .dynamic-comments-comment.nested-child {
-  width:auto;
-  padding-left: 15%;
+
   background-image: url('../images/reply.png');
-  background-repeat: no-repeat;
   background-position: 5px 10px;
+  background-repeat: no-repeat;
+  padding-left: 15%;
+  width:auto;
+
 }
 
 .dynamic-comments-comment:hover,
 .dynamic-comments-comment.active {
+
   background-color: rgba(249, 237, 190, 1);
   color: #000;
+
 }
 
 .dynamic-comments-comment.resolved:hover,
 .dynamic-comments-comment.resolved.active {
+
   background-color: rgba(141, 196, 120, 1);
   color: #000;
+
 }
 
 .dynamic-comments-comment + .dynamic-comments-comment {
+
   margin-top: 10px;
+
 }
 
 .dynamic-comments-comment .comment-delete {
+
   cursor: pointer;
   position: absolute;
-  top: 5px;
   right: 5px;
+  top: 5px;
+
 }
 
 .dynamic-comments-comment .resolve-comment-button {
+
   cursor: pointer;
   position: absolute;
-  top: 5px;
   right: 19px;
+  top: 5px;
+
 }
 
 .dynamic-comments-comment .resolved-comment {
-  color: #5B9145;
+
+  color: #5b9145;
   position: absolute;
-  top: 3px;
   right: 22px;
+  top: 3px;
+
 }
 
 .dynamic-comments-comment .dynamic-comments-comment-user .user-picture {
-  width: 25px;
+
   margin: 0 5px 0 0;
+  width: 25px;
+
 }
 
 .dynamic-comments-comment .dynamic-comments-comment-user .user-name {
+
   font-weight: 300;
+
 }
 
 .dynamic-comments-window {
-  width: 200px;
+
   background-color: rgba(249,237,190, 1);
   -moz-box-shadow: 0 0 1px 1px #ccc;
   -webkit-box-shadow: 0 0 1px 1px #ccc;
   box-shadow: 0 0 1px 1px #ccc;
+  width: 200px;
   z-index: 100;
+
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner {
+
+  overflow: auto;
   padding: 10px 10px 15px 10px;
   position: relative;
-  overflow: auto;
+
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .post-comment-text {
+
   border-radius: 0;
   border: 1px solid #eaeaea;
-  margin-top: 5px;
   -moz-box-shadow: inset 0 0 5px #ccc;
   -webkit-box-shadow: inset 0 0 5px #ccc;
   box-shadow: inner 0 0 5px #ccc;
+  margin-top: 5px;
+
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .window-close {
+
   cursor: pointer;
   position: absolute;
-  top: 10px;
   right: 10px;
+  top: 10px;
+
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .post-comment-button {
-  float: right;
-  clear: right;
+
   background: #ccc;
-  margin-top: 5px;
+  clear: right;
   cursor: pointer;
+  float: right;
+  margin-top: 5px;
   padding: 0 10px;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window {
-  width: auto;
+
   background-color: transparent;
-  z-index: 100;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  width: auto;
+  z-index: 100;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window .dynamic-comments-window-inner {
+
   padding: 0;
+
 }
 
 .dynamic-comments-sidebar .dynamic-comments-window .dynamic-comments-window-inner .window-close {
-  cursor: pointer;
-  position: relative;
-  text-indent: 0px;
-  float: right;
+
   background: #ccc;
+  cursor: pointer;
+  float: right;
   margin-top: 5px;
   margin-right: 10px;
-  cursor: pointer;
   padding: 0 10px;
-  width: auto;
-  top: 0;
+  position: relative;
   right: 0;
+  text-indent: 0px;
+  top: 0;
+  width: auto;
+
 }
 
 .comment-highlighted {
-  color: #B20000;
+
+  color: #b20000;
   text-decoration: underline;
+
 }
 
 .dynamic-comments-icons .dynamic-comments-comment-icon {
+
   background-image: url('../images/comment_icon.png');
   background-repeat: no-repeat;
-  width: 13px;
-  height: 13px;
-  display: block;
-  text-indent: -9999px;
-  margin-top: -12px;
   cursor: pointer;
+  display: block;
+  height: 13px;
+  margin-top: -12px;
+  text-indent: -9999px;
+  width: 13px;
+
 }
 
 .dynamic-comments-icons .dynamic-comments-comment-icon.active {
+
   background-image: url('../images/comment_icon_active.png');
+
 }
 
 .dynamic-comments-window .dynamic-comments-window-inner .window-close,
 .dynamic-comments-comment .comment-delete {
+
   background-image: url('../images/message-dismiss.png');
   background-repeat: no-repeat;
   text-indent: -9999px;
   width: 12px;
+
 }
 
 .dynamic-comments-comment .resolve-comment-button {
+
   background-image: url('../images/message-status-sm.png');
   background-repeat: no-repeat;
+  height: 12px;
   text-indent: -9999px;
   width: 16px;
-  height: 12px;
+
 }
 
 .dynamic-comments-comment .reply-comment-button {
+
   background-image: url('../images/reply_small.png');
   background-repeat: no-repeat;
   padding: 0 0 0 18px;
   width: 32px;
+
 }

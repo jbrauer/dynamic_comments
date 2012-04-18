@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * @file
+ * Install file for Dynamic Comments.
+ * 
+ */
+
+/**
+ * Implements hook_permission().
+ *
+ */
 function dynamic_comments_schema() {
 
   $schema['dynamic_comments_comments'] = array(

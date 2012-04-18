@@ -13,19 +13,19 @@
 function dynamic_comments_menu() {
 
   $items['dynamic_comments/post'] = array(
-      'title' => 'Dynamic Comments Post',
-      'page callback' => 'dynamic_comments_post_handler',
-      'file' => 'includes/dynamic_comments_post_handler.inc',
-      'access arguments' => array('use Dynamic Comments'),
-      'type' => MENU_CALLBACK,
+    'title' => 'Dynamic Comments Post',
+    'page callback' => 'dynamic_comments_post_handler',
+    'file' => 'includes/dynamic_comments_post_handler.inc',
+    'access arguments' => array('use Dynamic Comments'),
+    'type' => MENU_CALLBACK,
   );
 
   $items['admin/settings/dynamic_comments'] = array(
-      'title' => 'Dynamic Comments',
-      'page callback' => 'dynamic_comments_settings',
-      'file' => 'includes/dynamic_comments_settings.inc',
-      'access arguments' => array('administer Dynamic Comments'),
-      'type' => MENU_NORMAL_ITEM,
+    'title' => 'Dynamic Comments',
+    'page callback' => 'dynamic_comments_settings',
+    'file' => 'includes/dynamic_comments_settings.inc',
+    'access arguments' => array('administer Dynamic Comments'),
+    'type' => MENU_NORMAL_ITEM,
   );
 
   return $items;
@@ -36,31 +36,34 @@ function dynamic_comments_menu() {
  *
  */
 function dynamic_comments_perm() {
-  
+
   return array(
-      'use Dynamic Comments',
-      'delete single comments',
-      'resolve comments',
-      'administer Dynamic Comments',
+    'use Dynamic Comments',
+    'delete single comments',
+    'resolve comments',
+    'administer Dynamic Comments',
   );
 }
 
+/*
+ * Implementation of hook_nodeapi
+ *
+ */
 function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
   switch ($op) {
 
     case 'view' :
-
-      // check current user's role and permissions to this review
+      // Check current user's role and permissions to this review
       if (user_access('use Dynamic Comments')) {
 
-        // get settings allowed node types
+        // Get settings allowed node types
         $allowed_types = variable_get('dynamic_comments_node_types', NULL);
 
-        // add js libraries, settings, etc only if this node type is in the settings
+        // Add js libraries, settings, etc only if this node type is in the settings
         if (is_array($allowed_types) && in_array($node->type, $allowed_types, TRUE)) {
 
-          // execute following code if user is a reviewer or if the setting isn't set in the admin page
+          // Execute following code if user is a reviewer or if the setting isn't set in the admin page
           global $user;
           $reviewer = _dynamic_comments_is_reviewer($node, $user);
 
@@ -72,7 +75,7 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
               global $base_url;
 
-              // adding rangy libraries
+              // Adding rangy libraries
               if (file_exists('./sites/all/libraries/rangy')) {
 
                 $rangy_path = 'sites/all/libraries/rangy';
@@ -81,7 +84,7 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
                 drupal_add_js($rangy_path . '/rangy-cssclassapplier.js');
               }
 
-              // adding scrollTo libraries
+              // Adding scrollTo libraries
               if (file_exists('./sites/all/libraries/jquery.scrollTo')) {
 
                 $scrollto_path = 'sites/all/libraries/jquery.scrollTo';
@@ -92,12 +95,12 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
               drupal_add_css(drupal_get_path('module', 'dynamic_comments') . '/css/dynamic_comments.css');
 
               $settings = array(
-                  'nid' => $node->nid,
-                  'user' => $user->uid,
-                  'post_path' => $base_url . '/dynamic_comments/post',
-                  'refresh_interval' => variable_get('dynamic_comments_interval', 30000),
-                  'content_area' => variable_get('dynamic_comments_content_class', NULL),
-                  'security_token' => drupal_get_token(),
+                'nid' => $node->nid,
+                'user' => $user->uid,
+                'post_path' => $base_url . '/dynamic_comments/post',
+                'refresh_interval' => variable_get('dynamic_comments_interval', 30000),
+                'content_area' => variable_get('dynamic_comments_content_class', NULL),
+                'security_token' => drupal_get_token(),
               );
 
               drupal_add_js(array('dynamic_comments' => $settings), 'setting');
@@ -118,7 +121,7 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
 function _dynamic_comments_is_reviewer($node, $user) {
 
-  // user reference check
+  // User reference check
   $using_user_reference = variable_get('dynamic_comments_user_reference_field', NULL);
 
   if ($using_user_reference != '') {
@@ -131,12 +134,12 @@ function _dynamic_comments_is_reviewer($node, $user) {
       $authorized_reviewers[] = $ref['uid'];
     }
 
-    // push the node author into the authorized reviewers array also
+    // Push the node author into the authorized reviewers array also
     if (!in_array($node->uid, $authorized_reviewers)) {
       $authorized_reviewers[] = $node->uid;
     }
 
-    // check if current user is in array
+    // Check if current user is in array
     if (in_array($user->uid, $authorized_reviewers)) {
       return $authorized_reviewers;
     }

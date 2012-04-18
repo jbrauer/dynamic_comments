@@ -1,19 +1,18 @@
 <?php
 
-/*
+/**
  * Form callback for admin section
  *
  */
-
 function dynamic_comments_settings() {
 
-  // check if libraries have been installed
+  // check if libraries have been installed.
   $files_missing = array();
   $files_to_check = array(
-      'rangy-core.js' => './sites/all/libraries/rangy/rangy-core.js',
-      'rangy-serializer.js' => './sites/all/libraries/rangy/rangy-serializer.js',
-      'rangy-cssclassapplier.js' => './sites/all/libraries/rangy/rangy-cssclassapplier.js',
-      'jquery.scrollTo.js' => './sites/all/libraries/jquery.scrollTo/jquery.scrollTo.js',
+    'rangy-core.js' => './sites/all/libraries/rangy/rangy-core.js',
+    'rangy-serializer.js' => './sites/all/libraries/rangy/rangy-serializer.js',
+    'rangy-cssclassapplier.js' => './sites/all/libraries/rangy/rangy-cssclassapplier.js',
+    'jquery.scrollTo.js' => './sites/all/libraries/jquery.scrollTo/jquery.scrollTo.js',
   );
 
   foreach ($files_to_check as $file_name => $file_path) {
@@ -34,7 +33,7 @@ function dynamic_comments_settings() {
 
     $message .= '</ul>';
 
-    // display an error message prompting admin to install the required libraries
+    // display an error message prompting admin to install the required libraries.
     drupal_set_message($message, 'error');
   }
 
@@ -43,44 +42,44 @@ function dynamic_comments_settings() {
 
 function dynamic_comments_settings_form() {
 
-  // get current types
+  // Get current types.
   $types = _dynamic_comments_get_types();
 
   $form['dynamic_comments_node_types'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Nodes types that will display Dynamic Comments'),
-      '#default_value' => variable_get('dynamic_comments_node_types', NULL),
-      '#options' => $types,
-      '#description' => t('Select what node types will display Dynamic Comments')
+    '#type' => 'checkboxes',
+    '#title' => t('Nodes types that will display Dynamic Comments'),
+    '#default_value' => variable_get('dynamic_comments_node_types', NULL),
+    '#options' => $types,
+    '#description' => t('Select what node types will display Dynamic Comments')
   );
 
   $form['dynamic_comments_interval'] = array(
-      '#type' => 'select',
-      '#title' => t('Auto refresh interval'),
-      '#default_value' => variable_get('dynamic_comments_interval', 30000),
-      '#options' => array(
-          '0' => 'No auto refresh',
-          '5000' => 'Refresh every 5 seconds',
-          '10000' => 'Refresh every 10 seconds',
-          '15000' => 'Refresh every 15 seconds',
-          '30000' => 'Refresh every 30 seconds',
-          '60000' => 'Refresh every 60 seconds',
-      ),
-      '#description' => t('Select the interval for Dynamic Comments to query the database for new comments')
+    '#type' => 'select',
+    '#title' => t('Auto refresh interval'),
+    '#default_value' => variable_get('dynamic_comments_interval', 30000),
+    '#options' => array(
+        '0' => 'No auto refresh',
+        '5000' => 'Refresh every 5 seconds',
+        '10000' => 'Refresh every 10 seconds',
+        '15000' => 'Refresh every 15 seconds',
+        '30000' => 'Refresh every 30 seconds',
+        '60000' => 'Refresh every 60 seconds',
+    ),
+    '#description' => t('Select the interval for Dynamic Comments to query the database for new comments'),
   );
 
   $form['dynamic_comments_content_class'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Content class'),
-      '#default_value' => variable_get('dynamic_comments_content_class', '.node .content'),
-      '#description' => t('Dynamic Comments uses the class ".content" for the JQuery selector. Enter another value in this textbox only if you\'d like to modify this. Please include the dot in the class name.'),
+    '#type' => 'textfield',
+    '#title' => t('Content class'),
+    '#default_value' => variable_get('dynamic_comments_content_class', '.node .content'),
+    '#description' => t('Dynamic Comments uses the class ".content" for the JQuery selector. Enter another value in this textbox only if you\'d like to modify this. Please include the dot in the class name.'),
   );
 
   $form['dynamic_comments_user_reference_field'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Limit reviewers per User Reference field'),
-      '#default_value' => variable_get('dynamic_comments_user_reference_field', NULL),
-      '#description' => t('If set, Dynamic Comments will look at a user reference field in the node to be reviewed and will limit the functionality to these specific users. Enter the machine name of the User Reference field to be used.'),
+    '#type' => 'textfield',
+    '#title' => t('Limit reviewers per User Reference field'),
+    '#default_value' => variable_get('dynamic_comments_user_reference_field', NULL),
+    '#description' => t('If set, Dynamic Comments will look at a user reference field in the node to be reviewed and will limit the functionality to these specific users. Enter the machine name of the User Reference field to be used.'),
   );
 
   return system_settings_form($form);
@@ -91,8 +90,8 @@ function dynamic_comments_settings_form() {
  *
  */
 
-// return node types in this site
-// (separated function just to keep this whole thing organized)
+// Return node types in this site.
+// (separated function just to keep this whole thing organized).
 function _dynamic_comments_get_types() {
 
   $types = array();
