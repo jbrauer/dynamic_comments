@@ -1,0 +1,72 @@
+<?php
+
+function dynamic_comments_schema() {
+
+  $schema['dynamic_comments_comments'] = array(
+    'description' => 'Comments table for Dynamic Comments.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'Node where comment is to be displayed.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'cid' => array(
+        'description' => 'The comment identifier.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'parent' => array(
+        'description' => 'The comment parent.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'comment_body' => array(
+        'description' => 'The comment body.',
+        'type' => 'text',
+        'size' => 'medium',
+        'default' => '',
+      ),
+      'range_position' => array(
+        'description' => 'The comment position from rangy.',
+        'type' => 'text',
+        'size' => 'medium',
+        'default' => '',
+      ),
+        'uid' => array(
+        'description' => 'User posting the comment.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'position' => array(
+        'description' => 'The icon position serialized object.',
+        'type' => 'text',
+        'size' => 'medium',
+        'default' => '',
+      ),
+      'status' => array(
+        'description' => 'Resolved (1) or unresolved (0).',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('cid'),
+  );
+
+  return $schema;
+
+}
+
+function dynamic_comments_install() {
+
+  drupal_install_schema('dynamic_comments');
+}
+
+function dynamic_comments_uninstall() {
+
+  drupal_uninstall_schema('dynamic_comments');
+}

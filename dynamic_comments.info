@@ -1,0 +1,4 @@
+name = Dynamic Comments
+description = Dynamic Comments is used to flag portions of text on any given node and make comments on the selection.
+core = 6.x
+dependencies[] = jquery_update
