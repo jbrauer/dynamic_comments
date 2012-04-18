@@ -56,7 +56,7 @@ function dynamic_comments_post_handler() {
       $json_return = array();
 
       $data = array(
-          'nid' => filter_xss($_POST['nid']),
+        'nid' => filter_xss($_POST['nid']),
       );
 
       $result = db_query('SELECT c.nid, c.cid, c.comment_body, c.range_position, c.uid, c.parent, c.position, c.status

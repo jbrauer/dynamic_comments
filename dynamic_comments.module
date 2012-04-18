@@ -54,7 +54,7 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
       // Check current user's role and permissions to this review.
       if (user_access('use Dynamic Comments')) {
 
-        // Get settings allowed node types
+        // Get settings allowed node types.
         $allowed_types = variable_get('dynamic_comments_node_types', NULL);
 
         // Add js libraries, settings, etc only if this node type is in the settings.
@@ -116,6 +116,9 @@ function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   }
 }
 
+/**
+ * Custom function.
+ */
 function _dynamic_comments_is_reviewer($node, $user) {
 
   // User reference check.
