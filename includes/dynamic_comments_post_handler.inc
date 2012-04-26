@@ -9,10 +9,8 @@
  * Custom function
  */
 function dynamic_comments_post_handler() {
-
   // Check token and return an access denied if it doesn't validate.
   if (!drupal_valid_token($_POST['token'])) {
-
     return drupal_access_denied();
   }
 
@@ -23,7 +21,6 @@ function dynamic_comments_post_handler() {
 
   // Get action from POST.
   switch (filter_xss($_POST['action'])) {
-
     case 'insert':
       $data = array(
         'nid'            => $_POST['nid'],
@@ -34,7 +31,6 @@ function dynamic_comments_post_handler() {
         'position'       => $_POST['position'],
         'status'         => $_POST['status'],
       );
-
       $result = drupal_write_record('dynamic_comments_comments', $data);
 
       if (!$result) {
@@ -49,7 +45,6 @@ function dynamic_comments_post_handler() {
           'message'   => t('Your comment has been saved.'),
         ));
       }
-
       break;
 
     case 'retrieve':
@@ -64,7 +59,6 @@ function dynamic_comments_post_handler() {
                           WHERE c.nid = %d', $data['nid']);
 
       while ($comment = db_fetch_object($result)) {
-
         $user = user_load($comment->uid);
 
         // In case user pic isn't set, we provide a module default one.
@@ -87,8 +81,6 @@ function dynamic_comments_post_handler() {
 
         $json_return[$comment->cid] = $json_comment;
       }
-
-
       return drupal_json($json_return);
 
       break;
@@ -101,10 +93,8 @@ function dynamic_comments_post_handler() {
        * is the current user performing this ;)
        */
       if (filter_xss($_POST['user']) == $user->uid) {
-
         // Also check if the permission has been granted.
         if (user_access('delete single comments')) {
-
           $data = array(
             'nid'     => $_POST['nid'],
             'comment' => $_POST['comment'],
@@ -114,7 +104,6 @@ function dynamic_comments_post_handler() {
 
           // Cast to int to avoid errors.
           if ((int) $data['parent'] == 0) {
-
             // First run query on parents then on child comments.
             $query_1 = db_query('DELETE FROM {dynamic_comments_comments} WHERE cid = %d', $data['comment']);
             $query_2 = db_query('DELETE FROM {dynamic_comments_comments} WHERE parent = %d', $data['comment']);
@@ -127,7 +116,6 @@ function dynamic_comments_post_handler() {
 
           // Not a parent comment, just erase.
           else {
-
             $result = db_query('DELETE FROM {dynamic_comments_comments} WHERE cid = %d', $data['comment']);
           }
 
@@ -151,7 +139,6 @@ function dynamic_comments_post_handler() {
           'message'   => t('Your comment has been deleted.'),
         ));
       }
-
       break;
 
     case 'update':
@@ -162,10 +149,8 @@ function dynamic_comments_post_handler() {
        * is the current user performing this ;)
        */
       if (filter_xss($_POST['user']) == $user->uid) {
-
         // Also check if the permission has been granted.
         if (user_access('resolve comments')) {
-
           $data = array(
             'nid'     => $_POST['nid'],
             'comment' => $_POST['comment'],
@@ -173,9 +158,7 @@ function dynamic_comments_post_handler() {
             'parent'  => $_POST['parent'],
             'status'  => $_POST['status'],
           );
-
           $result = db_query('UPDATE {dynamic_comments_comments} SET status = %d WHERE cid = %d', $data['status'], $data['comment']);
-
         }
       }
 
@@ -195,7 +178,6 @@ function dynamic_comments_post_handler() {
           'message'   => t('Your comment has been resolved.'),
         ));
       }
-
       break;
   }
 }

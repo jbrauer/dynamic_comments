@@ -34,20 +34,15 @@
 
     // bind mouseup function to node body
     $(content_area).mouseup(function(e) {
-
       // window already open, so close it
       if (document.getElementById('current-dynamic-comments-window')) {
-
         Drupal.behaviors.dynamic_comments.ui.closeCommentWindows();
         Drupal.behaviors.dynamic_comments.ui.clearActiveItems();
       }
       // no window open, run Rangy to get a selection object and serialize it
       else {
-
         Drupal.behaviors.dynamic_comments.ui.clearActiveItems();
-
         var selection = rangy.getSelection();
-
         if (selection.anchorNode == selection.focusNode) {
 
           // this means there is nothing really selected, so we do not open a window
@@ -56,22 +51,18 @@
           // afterwards, so not allowing empty selection comments seems like the right solution at this time,
           // double clicking on a word should select it, just like highlighting it would do
           if (selection.anchorOffset == selection.focusOffset) {
-
             // do something to avoid JS errors on the selection
             return false;
           }
           // @TODO: maybe there is a better way to centralize these two elses so we do not write repetitive functions
           else {
-
             // get the selection serialized and open a window in the mouseup coordinates
             serializedSelection = rangy.serializeSelection(selection, true);
             selectionPosition = JSON.stringify(Drupal.behaviors.dynamic_comments.commentObject.getPosition(selection));
             Drupal.behaviors.dynamic_comments.ui.buildCommentWindow(e.pageX, e.pageY, 'body', allow_comments);
           }
-
         }
         else {
-
           // same as above else
           serializedSelection = rangy.serializeSelection(selection, true);
           selectionPosition = JSON.stringify(Drupal.behaviors.dynamic_comments.commentObject.getPosition(selection));
@@ -94,25 +85,19 @@
 
     // bind click function to every window post button that's created
     $('.dynamic-comments-window .post-comment-button').live('click', function(){
-
       // get value from textfield
       // @TODO: take action when textfield doesn't validate, some sort of error focus or so
       var comment = $(this).siblings('textarea.post-comment-text').val();
       var parent;
 
       if (comment !== '') {
-
         if ($(this).parents('.dynamic-comments-window').hasClass('child')) {
-
           parent = $(this).parents('.dynamic-comments-comment').attr('id');
-
           for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
             if (parent === Drupal.behaviors.dynamic_comments.commentsArray[i].cid) {
               serializedSelection = Drupal.behaviors.dynamic_comments.commentsArray[i].range;
             }
           }
-
         }
         else {
           parent = 0;
@@ -131,26 +116,21 @@
 
     // bind click function on the sidebar comments to show the highlighted text
     $('#dynamic-comments-sidebar .dynamic-comments-comment').live('click', function(e){
-
       if (e.isPropagationStopped()) {
         return;
       };
 
       if (e.type == 'click') {
-
         var element;
 
         // click on a nested child should highlight the parent
         if ($(this).hasClass('nested-child')) {
-
           // get classes and find the 'child-of-X' classe to get the parent id
           var classList = $(this).attr('class').split(/\s+/);
           var child_of, id;
 
           for (i in classList) {
-
             if (classList[i].search(/child-of-/i) != -1) {
-
               child_of = classList[i];
             }
           }
@@ -173,26 +153,19 @@
         current_selection = null;
 
         for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
           if (element.attr('id') === Drupal.behaviors.dynamic_comments.commentsArray[i].cid) {
-
             current_selection = rangy.deserializeSelection(Drupal.behaviors.dynamic_comments.commentsArray[i].range);
-
             $.scrollTo($('.dynamic-comments-comment-icon#' + element.attr('id')), 500, {
               offset:-200
             });
-
           }
         }
       }
-
     });
 
     // bind click function to the comments icons
     $('.dynamic-comments-comment-icon').live('click', function(e){
-
       if (e.type == 'click') {
-
         Drupal.behaviors.dynamic_comments.ui.clearActiveItems();
         $(this).addClass('active');
 
@@ -206,26 +179,18 @@
         current_selection = null;
 
         for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
           if ($(this).attr('id') === Drupal.behaviors.dynamic_comments.commentsArray[i].cid) {
-
             current_selection = rangy.deserializeSelection(Drupal.behaviors.dynamic_comments.commentsArray[i].range);
           }
         }
-
       }
-
     });
 
     // bind click function to the delete comment X
     $('.comment-delete').live('click', function(e){
-
       if (e.type == 'click') {
-
         for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
           if ($(this).parents('.dynamic-comments-comment').attr('id') === Drupal.behaviors.dynamic_comments.commentsArray[i].cid) {
-
             Drupal.behaviors.dynamic_comments.connections.deleteData(post_path, nid, Drupal.behaviors.dynamic_comments.commentsArray[i].cid, user, Drupal.behaviors.dynamic_comments.commentsArray[i].parent);
           }
         }
@@ -233,46 +198,33 @@
         Drupal.behaviors.dynamic_comments.connections.retrieveData(post_path, nid);
 
         return false;
-
       }
-
     });
 
     // bind click function to the resolve comment icon
     $('.resolve-comment-button').live('click', function(e){
-
       if (e.type == 'click') {
-
         for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
           if ($(this).parents('.dynamic-comments-comment').attr('id') === Drupal.behaviors.dynamic_comments.commentsArray[i].cid) {
-
             if (Drupal.behaviors.dynamic_comments.commentsArray[i].status == 0) {
-
               status = 1;
-
               Drupal.behaviors.dynamic_comments.connections.updateData(post_path, nid, Drupal.behaviors.dynamic_comments.commentsArray[i].cid, user, Drupal.behaviors.dynamic_comments.commentsArray[i].parent, status);
             }
           }
         }
 
         status = 0;
-
         Drupal.behaviors.dynamic_comments.connections.retrieveData(post_path, nid);
 
         return false;
-
       }
-
     });
 
     // bind click function to the reply comment
     $('.reply-comment-button').live('click', function(e) {
-
       Drupal.behaviors.dynamic_comments.ui.buildCommentWindow(0, 0, $(this).parents('.dynamic-comments-comment'));
       return false;
     });
-
   }
 
   /*
@@ -293,7 +245,6 @@
 
   // UI object
   Drupal.behaviors.dynamic_comments.ui = {
-
     // ui basic elements' markup
     sidebar_HTML : '<div id="dynamic-comments-sidebar" class="dynamic-comments-sidebar">\n\
                       <div class="dynamic-comments-sidebar-messages">\n\
@@ -323,7 +274,6 @@
 
     // build the basic ui elements, function generaly called on page load
     renderUi : function() {
-
       // create sidebar container for comments and add class for the body right margin
       // @TODO: implementing a slide in and slide out effect on the sidebar seems to mess the
       // position of the icons in the screen.
@@ -338,7 +288,6 @@
 
     // comment window pop-up creation
     buildCommentWindow : function(x, y, where_to_append, allow_comments_window) {
-
       // make sure there isn't other window displaying at the time
       this.closeCommentWindows();
 
@@ -354,7 +303,6 @@
       };
 
       if (typeof where_to_append === 'object') {
-
         var comment = $(where_to_append).attr('id');
         $('.dynamic-comments-comment.comment-' + comment).append(this.comment_window_HTML_sidebar);
       };
@@ -370,7 +318,6 @@
 
     // close all comment windows
     closeCommentWindows : function() {
-
       $('.dynamic-comments-window').remove();
 
       return false;
@@ -379,7 +326,6 @@
     // clear all active classes in comments and icons
     // @TODO: maybe convert this to a method in the comment object itself
     clearActiveItems : function() {
-
       $('#dynamic-comments-sidebar .dynamic-comments-comment').removeClass('active');
       $('.dynamic-comments-comment-icon').removeClass('active');
 
@@ -405,24 +351,19 @@
     // compares the current comments in the UI with the objects array and erases
     // any comment that doesn't have an object counterpart
     cleanupComments : function() {
-
       // function to check if changes in the comment array are being
       // reflected in the UI
       function inArray(id, resolved, objArray) {
-
         var length = objArray.length;
 
         for(var i = 0; i < length; i++) {
-
           if(objArray[i].cid == id) {
-
             if (objArray[i].status == resolved) {
               return [true, 'same'];
             }
             else {
               return [true, 'updated'];
             }
-
           }
         }
         return false;
@@ -440,7 +381,6 @@
         }
 
         if (in_array[0] && in_array[1] == 'updated') {
-
           for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
             if (id == Drupal.behaviors.dynamic_comments.commentsArray[i].cid) {
               Drupal.behaviors.dynamic_comments.commentsArray[i].update();
@@ -453,7 +393,6 @@
 
   // connections object
   Drupal.behaviors.dynamic_comments.connections = {
-
     // general function to post data to the server
     postData : function(post_path, nid, comment, range, user, parent, position, status) {
 
@@ -463,24 +402,20 @@
 
           Drupal.behaviors.dynamic_comments.ui.postMessage(data);
         }
-        );
+      );
     },
-
 
     // general function to retrieve data from the server
     retrieveData : function(post_path, nid) {
-
       $.post(post_path,
         Drupal.behaviors.dynamic_comments.sendObject.create('retrieve',nid),
         function(data) {
-
           var jsonObj = eval('(' + data + ')');
 
           Drupal.behaviors.dynamic_comments.commentsArray.length = 0;
 
           // fill commentsArray with the objects from the server
           for (var key in jsonObj) {
-
             Drupal.behaviors.dynamic_comments.commentsArray.push(Drupal.behaviors.dynamic_comments.commentObject.create(jsonObj[key]));
           }
 
@@ -490,24 +425,19 @@
           // execute the print method for each comment object, so they display in the UI
           // @TODO: should this be separated from the retrieveData method?
           for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
             // print comments without parents first, to make sure we have them
             // in the DOM when attaching their children
             if (Drupal.behaviors.dynamic_comments.commentsArray[i].parent == 0) {
-
               Drupal.behaviors.dynamic_comments.commentsArray[i].print();
             }
           }
 
           // print children since the parents are already in the DOM
           for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
             if (Drupal.behaviors.dynamic_comments.commentsArray[i].parent != 0) {
-
               Drupal.behaviors.dynamic_comments.commentsArray[i].print();
             }
           }
-
         });
     },
 
@@ -517,25 +447,19 @@
       $.post(post_path,
         Drupal.behaviors.dynamic_comments.sendObject.create('delete',nid, comment, null, user, parent),
         function(data) {
-
           Drupal.behaviors.dynamic_comments.ui.postMessage(data);
 
           var local_data = eval('(' + data + ')');
 
           if (local_data.status == 'ok') {
-
             for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
               if (Drupal.behaviors.dynamic_comments.commentsArray[i].parent === local_data.comment) {
-
                 Drupal.behaviors.dynamic_comments.commentsArray[i].erase();
               }
             }
 
             for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
               if (Drupal.behaviors.dynamic_comments.commentsArray[i].cid === local_data.comment) {
-
                 Drupal.behaviors.dynamic_comments.commentsArray[i].erase();
               }
             }
@@ -550,22 +474,17 @@
       $.post(post_path,
         Drupal.behaviors.dynamic_comments.sendObject.create('update',nid, comment, null, user, parent, null, status),
         function(data) {
-
           Drupal.behaviors.dynamic_comments.ui.postMessage(data);
 
           var local_data = eval('(' + data + ')');
 
           if (local_data.status == 'ok') {
-
             for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
-
               if (Drupal.behaviors.dynamic_comments.commentsArray[i].cid === local_data.comment) {
-
                 Drupal.behaviors.dynamic_comments.commentsArray[i].update();
               }
             }
           }
-
         });
     }
   }
@@ -573,7 +492,6 @@
   // prepare the post vars to be sent to the server
   // @TODO: improve this code with a switch statement
   Drupal.behaviors.dynamic_comments.sendObject = {
-
     create : function(action, nid, comment, range, user, parent, position, status) {
 
       if (action == 'insert') {
@@ -620,16 +538,12 @@
           "status"  : status
         }
       }
-
       return object;
     }
-
-
   }
 
   // object for each comment in the screen
   Drupal.behaviors.dynamic_comments.commentObject = {
-
     create : function(comment) {
 
       // json string to object
@@ -689,9 +603,7 @@
         // attempt to stop creation of multiple cloned objects
         // @TODO: does this work? is it needed?
         if (!document.getElementById(commentObj.cid)) {
-
           if (commentObj.parent == 0) {
-
             $('#dynamic-comments-sidebar .dynamic-comments-sidebar-inner').prepend(commentObj.html);
             $('.dynamic-comments-icons').prepend(commentObj.icon);
           }
@@ -711,12 +623,9 @@
         $('.comment-' + commentObj.cid).remove();
         $('.dynamic-comments-comment-icon#' + commentObj.cid).remove();
       }
-
       commentObj.update = function() {
         $('.comment-' + commentObj.cid).replaceWith(commentObj.html);
-
       }
-
       return commentObj;
 
     },
@@ -724,7 +633,6 @@
     // internal function to this object, used in the create method above
     // @TODO: figure out how to make this private, so it's not hit directly
     getPosition : function(selection) {
-
       var position;
 
       Drupal.behaviors.dynamic_comments.cssApplier = rangy.createCssClassApplier('c', {
@@ -741,7 +649,5 @@
 
       return position;
     }
-
   }
-
 })(jQuery);
