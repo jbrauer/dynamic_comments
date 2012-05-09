@@ -1,5 +1,77 @@
 (function($){
 
+  /**
+   * Theme functions
+   */
+  Drupal.theme.prototype.dynamicCommentsSidebarHTML = function () {
+    var sidebar_HTML = '<div id="dynamic-comments-sidebar" class="dynamic-comments-sidebar">\n\
+                          <div class="dynamic-comments-sidebar-messages">\n\
+                          </div>\n\
+                          <div class="dynamic-comments-sidebar-inner">\n\
+                          </div>\n\
+                        </div>';
+    return sidebar_HTML;
+  };
+
+  Drupal.theme.prototype.dynamicCommentsIconsContainerHTML = function () {
+    var icons_container_HTML = '<div class="dynamic-comments-icons">\n\
+                                </div>';
+    return icons_container_HTML;
+  }
+
+  Drupal.theme.prototype.dynamicCommentsCommentWindowHTML = function () {
+    var comment_window_HTML = '<div id="current-dynamic-comments-window" class="dynamic-comments-window">\n\
+                                 <div class ="dynamic-comments-window-inner">\n\
+                                   <div class="post-comment-title">Post a comment</div>\n\
+                                   <div class="window-close">X</div>\n\
+                                   <textarea class="post-comment-text" rows="2" cols="20"></textarea>\n\
+                                   <div class="post-comment-button">Post</div>\n\
+                                 </div>\n\
+                               </div>'
+    return comment_window_HTML;
+  }
+
+  Drupal.theme.prototype.dynamicCommentsCommentWindowHTMLSidebar = function () {
+    var comment_window_HTML_sidebar = '<div id="current-dynamic-comments-window" class="dynamic-comments-window child">\n\
+                                    <div class ="dynamic-comments-window-inner">\n\
+                                      <textarea class="post-comment-text" rows="2" cols="21"></textarea>\n\
+                                        <div class="post-comment-button">Post</div>\n\
+                                        <div class="window-close">Cancel</div>\n\
+                                    </div>\n\
+                                  </div>'
+    return comment_window_HTML_sidebar;
+  }
+  
+  Drupal.theme.prototype.dynamicCommentsCommentObjIcon = function (commentObj) {
+    var icon     = '<span class="dynamic-comments-comment-icon" id="' + commentObj.cid + '" style="position:absolute; top:' + commentObj.position.top + 'px; left:' + commentObj.position.left + 'px;">';
+        icon    += 'comment';
+        icon    += '</span>';
+    return icon;
+  }
+  
+  Drupal.theme.prototype.dynamicCommentsCommentObjHTML = function (commentObj, childClasses, resolvedClass) {
+    var html     = '<div class="dynamic-comments-comment comment-' + commentObj.cid + ' ' + childClasses + ' ' + resolvedClass + '" id="' + commentObj.cid + '" resolved="' + commentObj.status + '">';
+        html    += '<div class="dynamic-comments-comment-user">';
+        html    += '<img src="/' + commentObj.user_picture + '" class="user-picture"/>';
+        html    += '<span class="user-name"><em>' + commentObj.user_name + ' said:</em></span>';
+        html    += '</div>';
+        html    += '<div class="dynamic-comments-comment-inner">';
+        html    += '<span>' + commentObj.comment + '</span>';
+        html    += '<div class="comment-delete">X</div>';
+        if (commentObj.parent == 0) {
+          html    += '<div class="reply-comment-button">Reply</div>';
+        }
+        if (commentObj.status == 0) {
+          html    += '<div class="resolve-comment-button">Resolve</div>';
+        }
+        if (commentObj.status == 1) {
+          html    += '<div class="resolved-comment">Resolved!</div>';
+        }
+        html    += '</div>';
+        html    += '</div>';
+    return html;
+  }
+
   Drupal.behaviors.dynamic_comments = function(context) {
 
     // bring module settings locally
@@ -246,31 +318,12 @@
   // UI object
   Drupal.behaviors.dynamic_comments.ui = {
     // ui basic elements' markup
-    sidebar_HTML : '<div id="dynamic-comments-sidebar" class="dynamic-comments-sidebar">\n\
-                      <div class="dynamic-comments-sidebar-messages">\n\
-                      </div>\n\
-                      <div class="dynamic-comments-sidebar-inner">\n\
-                      </div>\n\
-                    </div>',
-    icons_container_HTML : '<div class="dynamic-comments-icons">\n\
-                            </div>',
+    sidebar_HTML : Drupal.theme('dynamicCommentsSidebarHTML'),
+    icons_container_HTML : Drupal.theme('dynamicCommentsIconsContainerHTML'),
     // pop-up to post comment
-    comment_window_HTML : '<div id="current-dynamic-comments-window" class="dynamic-comments-window">\n\
-                             <div class ="dynamic-comments-window-inner">\n\
-                               <div class="post-comment-title">Post a comment</div>\n\
-                               <div class="window-close">X</div>\n\
-                               <textarea class="post-comment-text" rows="2" cols="20"></textarea>\n\
-                               <div class="post-comment-button">Post</div>\n\
-                             </div>\n\
-                           </div>',
+    comment_window_HTML : Drupal.theme('dynamicCommentsCommentWindowHTML'),
     // comment in the sidebar
-    comment_window_HTML_sidebar : '<div id="current-dynamic-comments-window" class="dynamic-comments-window child">\n\
-                                    <div class ="dynamic-comments-window-inner">\n\
-                                      <textarea class="post-comment-text" rows="2" cols="21"></textarea>\n\
-                                        <div class="post-comment-button">Post</div>\n\
-                                        <div class="window-close">Cancel</div>\n\
-                                    </div>\n\
-                                  </div>',
+    comment_window_HTML_sidebar : Drupal.theme('dynamicCommentsCommentWindowHTMLSidebar'),
 
     // build the basic ui elements, function generaly called on page load
     renderUi : function() {
@@ -281,7 +334,7 @@
       .addClass('dynamic-comments-sidebar-active');
 
       // create container for comment icons
-      $('.dynamic-comments-content').append('<div class="dynamic-comments-icons"></div>');
+      $('.dynamic-comments-content').append(this.icons_container_HTML);
 
       return false;
     },
@@ -573,30 +626,10 @@
       }
 
       // create sidebar comment html
-      commentObj.html     = '<div class="dynamic-comments-comment comment-' + commentObj.cid + ' ' + childClasses + ' ' + resolvedClass + '" id="' + commentObj.cid + '" resolved="' + commentObj.status + '">';
-      commentObj.html    += '<div class="dynamic-comments-comment-user">';
-      commentObj.html    += '<img src="/' + commentObj.user_picture + '" class="user-picture"/>';
-      commentObj.html    += '<span class="user-name"><em>' + commentObj.user_name + ' said:</em></span>';
-      commentObj.html    += '</div>';
-      commentObj.html    += '<div class="dynamic-comments-comment-inner">';
-      commentObj.html    += '<span>' + commentObj.comment + '</span>';
-      commentObj.html    += '<div class="comment-delete">X</div>';
-      if (commentObj.parent == 0) {
-        commentObj.html    += '<div class="reply-comment-button">Reply</div>';
-      }
-      if (commentObj.status == 0) {
-        commentObj.html    += '<div class="resolve-comment-button">Resolve</div>';
-      }
-      if (commentObj.status == 1) {
-        commentObj.html    += '<div class="resolved-comment">Resolved!</div>';
-      }
-      commentObj.html    += '</div>';
-      commentObj.html    += '</div>';
+      commentObj.html = Drupal.theme('dynamicCommentsCommentObjHTML', commentObj, childClasses, resolvedClass);
 
       // create icon html
-      commentObj.icon     = '<span class="dynamic-comments-comment-icon" id="' + commentObj.cid + '" style="position:absolute; top:' + commentObj.position.top + 'px; left:' + commentObj.position.left + 'px;">';
-      commentObj.icon    += 'comment';
-      commentObj.icon    += '</span>';
+      commentObj.icon = Drupal.theme('dynamicCommentsCommentObjIcon', commentObj);
 
       // method for the comment to print itself in the UI
       commentObj.print = function() {

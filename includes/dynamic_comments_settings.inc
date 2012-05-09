@@ -59,12 +59,12 @@ function dynamic_comments_settings_form() {
     '#title' => t('Auto refresh interval'),
     '#default_value' => variable_get('dynamic_comments_interval', 30000),
     '#options' => array(
-      '0' => 'No auto refresh',
-      '5000' => 'Refresh every 5 seconds',
-      '10000' => 'Refresh every 10 seconds',
-      '15000' => 'Refresh every 15 seconds',
-      '30000' => 'Refresh every 30 seconds',
-      '60000' => 'Refresh every 60 seconds',
+      '0' => t('No auto refresh'),
+      '5000' => t('Refresh every 5 seconds'),
+      '10000' => t('Refresh every 10 seconds'),
+      '15000' => t('Refresh every 15 seconds'),
+      '30000' => t('Refresh every 30 seconds'),
+      '60000' => t('Refresh every 60 seconds'),
     ),
     '#description' => t('Select the interval for Dynamic Comments to query the database for new comments'),
   );
