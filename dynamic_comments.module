@@ -21,8 +21,8 @@ function dynamic_comments_menu() {
   $items['admin/settings/dynamic_comments'] = array(
     'title' => 'Dynamic Comments',
     'page callback' => 'dynamic_comments_settings',
-    'file' => 'includes/dynamic_comments_settings.inc',
-    'access arguments' => array('administer Dynamic Comments'),
+    'file' => 'includes/dynamic_comments.admin.inc',
+    'access arguments' => array('administer Dynamic Comments module'),
     'type' => MENU_NORMAL_ITEM,
   );
   return $items;
@@ -34,9 +34,9 @@ function dynamic_comments_menu() {
 function dynamic_comments_perm() {
   return array(
     'use Dynamic Comments',
-    'delete single comments',
-    'resolve comments',
-    'administer Dynamic Comments',
+    'delete Dynamic Comments single comments',
+    'resolve Dynamic Comments comments',
+    'administer Dynamic Comments module',
   );
 }
 

@@ -115,9 +115,12 @@ right roles on the site. Under <your-site>/admin/user/permissions find the
 found. As of this writing, the permissions and their purpose are:
 
 "administer Dynamic Comments" -> Module administration. Only grant to admins.
-"delete single comments" -> Shows a delete option on comments for moderation.
-"resolve comments" -> Allows turning comments into a resolved state.
-"use Dynamic Comments" -> Allows the usage of the module. Allows for comments.
+"delete Dynamic Comments single comments" -> Shows a delete option on comments
+for moderation.
+"resolve Dynamic Comments comments" -> Allows turning comments into a resolved
+state.
+"use Dynamic Comments module" -> Allows the usage of the module. Allows for
+comments.
 
 
 

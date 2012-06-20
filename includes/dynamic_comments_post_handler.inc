@@ -94,7 +94,7 @@ function dynamic_comments_post_handler() {
        */
       if (filter_xss($_POST['user']) == $user->uid) {
         // Also check if the permission has been granted.
-        if (user_access('delete single comments')) {
+        if (user_access('delete Dynamic Comments single comments')) {
           $data = array(
             'nid'     => $_POST['nid'],
             'comment' => $_POST['comment'],
@@ -150,7 +150,7 @@ function dynamic_comments_post_handler() {
        */
       if (filter_xss($_POST['user']) == $user->uid) {
         // Also check if the permission has been granted.
-        if (user_access('resolve comments')) {
+        if (user_access('resolve Dynamic Comments comments')) {
           $data = array(
             'nid'     => $_POST['nid'],
             'comment' => $_POST['comment'],

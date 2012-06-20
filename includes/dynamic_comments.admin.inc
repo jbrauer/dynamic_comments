@@ -25,17 +25,9 @@ function dynamic_comments_settings() {
   }
 
   if (!empty($files_missing)) {
-    $message = t('Dynamic Messages is missing some files. Please install:');
-    $message .= '<ul>';
-
     foreach ($files_missing as $file_name => $file_path) {
-      $message .= '<li>' . $file_name . ' in the path ' . $file_path . '</li>';
+      drupal_set_message(t('Dynamic Comments is missing the file @file in the path @path', array('@file' => $file_name, '@path' => $file_path)), 'error');
     }
-
-    $message .= '</ul>';
-
-    // Display an error message prompting admin to install the required libraries.
-    drupal_set_message($message, 'error');
   }
   return drupal_get_form('dynamic_comments_settings_form');
 }
@@ -88,7 +80,5 @@ function dynamic_comments_settings_form() {
  * Return node types in this site (separated function just to keep this whole thing organized).
  */
 function _dynamic_comments_get_types() {
-  $types = node_get_types('names');
-
-  return $types;
+  return node_get_types('names');
 }

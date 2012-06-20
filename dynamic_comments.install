@@ -73,7 +73,6 @@ function dynamic_comments_schema() {
  * Implements hook_install().
  */
 function dynamic_comments_install() {
-
   drupal_install_schema('dynamic_comments');
 }
 
@@ -81,6 +80,8 @@ function dynamic_comments_install() {
  * Implements hook_uninstall().
  */
 function dynamic_comments_uninstall() {
-
   drupal_uninstall_schema('dynamic_comments');
+  // Delete variables.
+  db_query("DELETE FROM {variable} WHERE name LIKE 'dynamic_comments_%'");
+  cache_clear_all('variables', 'cache');
 }
