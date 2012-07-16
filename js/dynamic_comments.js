@@ -471,9 +471,8 @@
       $.post(post_path,
         Drupal.behaviors.dynamic_comments.sendObject.create('retrieve',nid),
         function(data) {
-          console.log(data);
           var jsonObj = data;
-          console.log(jsonObj);
+
           Drupal.behaviors.dynamic_comments.commentsArray.length = 0;
 
           // fill commentsArray with the objects from the server
@@ -614,7 +613,8 @@
       // get position for icon placement
       if (commentObj.position != 'undefined') {
         console.log(commentObj.position);
-        commentObj.position = commentObj.position;
+        commentObj.position = JSON.parse(commentObj.position);
+        console.log(commentObj.position.top);
       }
       else {
         commentObj.position = {
