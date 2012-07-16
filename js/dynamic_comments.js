@@ -321,7 +321,7 @@
   Drupal.behaviors.dynamic_comments.currentSelection = {};
 
   // object for css applier
-  Drupal.behaviors.dynamic_comments.cssApplier = {};
+  //Drupal.Behaviors.dynamic_comments.cssApplier = ();
 
   // UI object
   Drupal.behaviors.dynamic_comments.ui = {
@@ -397,7 +397,7 @@
     // @TODO: slide effect?
     postMessage : function(message) {
 
-      var local_message = eval('(' + message + ')');
+      var local_message = message;
       var messages_div = $('.dynamic-comments-sidebar .dynamic-comments-sidebar-messages');
 
       messages_div.addClass(local_message.severity + ' visible')
@@ -471,8 +471,9 @@
       $.post(post_path,
         Drupal.behaviors.dynamic_comments.sendObject.create('retrieve',nid),
         function(data) {
-          var jsonObj = eval('(' + data + ')');
-
+          console.log(data);
+          var jsonObj = data;
+          console.log(jsonObj);
           Drupal.behaviors.dynamic_comments.commentsArray.length = 0;
 
           // fill commentsArray with the objects from the server
@@ -510,7 +511,7 @@
         function(data) {
           Drupal.behaviors.dynamic_comments.ui.postMessage(data);
 
-          var local_data = eval('(' + data + ')');
+          var local_data = data;
 
           if (local_data.status == 'ok') {
             for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
@@ -537,7 +538,7 @@
         function(data) {
           Drupal.behaviors.dynamic_comments.ui.postMessage(data);
 
-          var local_data = eval('(' + data + ')');
+          var local_data = data;
 
           if (local_data.status == 'ok') {
             for (i in Drupal.behaviors.dynamic_comments.commentsArray) {
@@ -608,11 +609,12 @@
     create : function(comment) {
 
       // json string to object
-      var commentObj = eval('(' + comment + ')');
+      var commentObj = comment;
 
       // get position for icon placement
       if (commentObj.position != 'undefined') {
-        commentObj.position = JSON.parse(commentObj.position);
+        console.log(commentObj.position);
+        commentObj.position = commentObj.position;
       }
       else {
         commentObj.position = {

@@ -58,7 +58,7 @@ function dynamic_comments_post_handler() {
                           FROM {dynamic_comments_comments} c
                           WHERE c.nid = :nid', array(':nid' => $data['nid']));
 
-      while ($comment = db_fetch_object($result)) {
+      foreach ($result as $comment) {
         $user = user_load($comment->uid);
 
         // In case user pic isn't set, we provide a module default one.
@@ -66,7 +66,7 @@ function dynamic_comments_post_handler() {
           $user->picture = drupal_get_path('module', 'dynamic_comments') . '/images/silhouette.gif';
         }
 
-        $json_comment = drupal_json_encode(array(
+        $json_comment = array(
           'nid' => filter_xss($comment->nid),
           'cid' => filter_xss($comment->cid),
           'comment' => check_plain($comment->comment_body),
@@ -77,7 +77,7 @@ function dynamic_comments_post_handler() {
           'status' => filter_xss($comment->status),
           'user_picture' => filter_xss($user->picture),
           'user_name' => filter_xss($user->name),
-        ));
+        );
 
         $json_return[$comment->cid] = $json_comment;
       }
