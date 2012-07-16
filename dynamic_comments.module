@@ -18,7 +18,7 @@ function dynamic_comments_menu() {
     'access arguments' => array('use Dynamic Comments'),
     'type' => MENU_CALLBACK,
   );
-  $items['admin/settings/dynamic_comments'] = array(
+  $items['admin/config/dynamic_comments'] = array(
     'title' => 'Dynamic Comments',
     'page callback' => 'dynamic_comments_settings',
     'file' => 'includes/dynamic_comments.admin.inc',
@@ -29,78 +29,91 @@ function dynamic_comments_menu() {
 }
 
 /**
- * Implements hook_perm().
+ * Implements hook_permission().
  */
-function dynamic_comments_perm() {
+function dynamic_comments_permission() {
   return array(
-    'use Dynamic Comments',
-    'delete Dynamic Comments single comments',
-    'resolve Dynamic Comments comments',
-    'administer Dynamic Comments module',
+    'use Dynamic Comments' => array(
+      'title' => t('use Dynamic Comments'),
+      'description' => t('TODO Add a description for \'use Dynamic Comments\''),
+    ),
+    'delete Dynamic Comments single comments' => array(
+      'title' => t('delete Dynamic Comments single comments'),
+      'description' => t('TODO Add a description for \'delete Dynamic Comments single comments\''),
+    ),
+    'resolve Dynamic Comments comments' => array(
+      'title' => t('resolve Dynamic Comments comments'),
+      'description' => t('TODO Add a description for \'resolve Dynamic Comments comments\''),
+    ),
+    'administer Dynamic Comments module' => array(
+      'title' => t('administer Dynamic Comments module'),
+      'description' => t('TODO Add a description for \'administer Dynamic Comments module\''),
+    ),
   );
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function dynamic_comments_node_view($node, $view_mode = 'full') {
+  // Check current user's role and permissions to this review.
+  if (user_access('use Dynamic Comments')) {
+    // Get settings allowed node types.
+    $allowed_types = variable_get('dynamic_comments_node_types', NULL);
+
+    // Add js libraries, settings, etc only if this node type is in the settings.
+    if (is_array($allowed_types) && in_array($node->type, $allowed_types, TRUE)) {
+      // Execute following code if user is a reviewer or if the setting isn't set in the admin page.
+      global $user;
+      $reviewer = _dynamic_comments_is_reviewer($node, $user);
+
+      if ($reviewer != FALSE) {
+        $content_area = variable_get('dynamic_comments_content_class', NULL);
+
+        if ($content_area != '') {
+          global $base_url;
+
+          // Adding rangy libraries.
+          if (file_exists('./sites/all/libraries/rangy')) {
+            $rangy_path = 'sites/all/libraries/rangy';
+            drupal_add_js($rangy_path . '/rangy-core.js');
+            drupal_add_js($rangy_path . '/rangy-serializer.js');
+            drupal_add_js($rangy_path . '/rangy-cssclassapplier.js');
+          }
+
+          // Adding scrollTo libraries.
+          if (file_exists('./sites/all/libraries/jquery.scrollTo')) {
+            $scrollto_path = 'sites/all/libraries/jquery.scrollTo';
+            drupal_add_js($scrollto_path . '/jquery.scrollTo.js');
+          }
+
+          drupal_add_js(drupal_get_path('module', 'dynamic_comments') . '/js/dynamic_comments.js');
+          drupal_add_css(drupal_get_path('module', 'dynamic_comments') . '/css/dynamic_comments.css');
+
+          $settings = array(
+            'nid' => $node->nid,
+            'user' => $user->uid,
+            'post_path' => $base_url . '/dynamic_comments/post',
+            'refresh_interval' => variable_get('dynamic_comments_interval', 30000),
+            'content_area' => variable_get('dynamic_comments_content_class', NULL),
+            'security_token' => drupal_get_token(),
+          );
+          drupal_add_js(array('dynamic_comments' => $settings), array('type' => 'setting', 'scope' => JS_DEFAULT));
+        }
+        else {
+          drupal_set_message(t('Dynamic Comments doesn\'t seem to have a
+                JQuery selector set. Please visit the module\'s admin page and
+                set your body classes in the "Content Class" section.'), 'error');
+        }
+      }
+    }
+  }
 }
 
 /**
  * Implements hook_nodeapi().
  */
-function dynamic_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  switch ($op) {
-    case 'view':
-      // Check current user's role and permissions to this review.
-      if (user_access('use Dynamic Comments')) {
-        // Get settings allowed node types.
-        $allowed_types = variable_get('dynamic_comments_node_types', NULL);
-
-        // Add js libraries, settings, etc only if this node type is in the settings.
-        if (is_array($allowed_types) && in_array($node->type, $allowed_types, TRUE)) {
-          // Execute following code if user is a reviewer or if the setting isn't set in the admin page.
-          global $user;
-          $reviewer = _dynamic_comments_is_reviewer($node, $user);
-
-          if ($reviewer != FALSE) {
-            $content_area = variable_get('dynamic_comments_content_class', NULL);
-
-            if ($content_area != '') {
-              global $base_url;
-
-              // Adding rangy libraries.
-              if (file_exists('./sites/all/libraries/rangy')) {
-                $rangy_path = 'sites/all/libraries/rangy';
-                drupal_add_js($rangy_path . '/rangy-core.js');
-                drupal_add_js($rangy_path . '/rangy-serializer.js');
-                drupal_add_js($rangy_path . '/rangy-cssclassapplier.js');
-              }
-
-              // Adding scrollTo libraries.
-              if (file_exists('./sites/all/libraries/jquery.scrollTo')) {
-                $scrollto_path = 'sites/all/libraries/jquery.scrollTo';
-                drupal_add_js($scrollto_path . '/jquery.scrollTo.js');
-              }
-
-              drupal_add_js(drupal_get_path('module', 'dynamic_comments') . '/js/dynamic_comments.js');
-              drupal_add_css(drupal_get_path('module', 'dynamic_comments') . '/css/dynamic_comments.css');
-
-              $settings = array(
-                'nid' => $node->nid,
-                'user' => $user->uid,
-                'post_path' => $base_url . '/dynamic_comments/post',
-                'refresh_interval' => variable_get('dynamic_comments_interval', 30000),
-                'content_area' => variable_get('dynamic_comments_content_class', NULL),
-                'security_token' => drupal_get_token(),
-              );
-              drupal_add_js(array('dynamic_comments' => $settings), 'setting');
-            }
-            else {
-              drupal_set_message(t('Dynamic Comments doesn\'t seem to have a
-                JQuery selector set. Please visit the module\'s admin page and
-                set your body classes in the "Content Class" section.'), 'error');
-            }
-          }
-        }
-      }
-      break;
-  }
-}
+function dynamic_comments_nodeapi_OLD(&$node, $op, $a3 = NULL, $a4 = NULL) { }
 
 /**
  * Custom function.

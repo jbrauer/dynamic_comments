@@ -35,7 +35,7 @@ function dynamic_comments_settings() {
 /**
  * Implements hook_form().
  */
-function dynamic_comments_settings_form() {
+function dynamic_comments_settings_form($form) {
   // Get current types.
   $types = _dynamic_comments_get_types();
 
@@ -80,5 +80,5 @@ function dynamic_comments_settings_form() {
  * Return node types in this site (separated function just to keep this whole thing organized).
  */
 function _dynamic_comments_get_types() {
-  return node_get_types('names');
+  return node_type_get_names();
 }

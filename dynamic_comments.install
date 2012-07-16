@@ -73,15 +73,21 @@ function dynamic_comments_schema() {
  * Implements hook_install().
  */
 function dynamic_comments_install() {
-  drupal_install_schema('dynamic_comments');
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_install_schema('dynamic_comments')
 }
 
 /**
  * Implements hook_uninstall().
  */
 function dynamic_comments_uninstall() {
-  drupal_uninstall_schema('dynamic_comments');
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_uninstall_schema('dynamic_comments')
   // Delete variables.
-  db_query("DELETE FROM {variable} WHERE name LIKE 'dynamic_comments_%'");
+  // TODO Please review the conversion of this statement to the D7 database API syntax.
+  /* db_query("DELETE FROM {variable} WHERE name LIKE 'dynamic_comments_%'") */
+  db_delete('variable')
+  ->condition('name', 'dynamic_comments_%', 'LIKE')
+  ->execute();
   cache_clear_all('variables', 'cache');
 }
