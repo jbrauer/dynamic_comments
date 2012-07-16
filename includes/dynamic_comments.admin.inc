@@ -12,10 +12,10 @@ function dynamic_comments_settings() {
   // Check if libraries have been installed.
   $files_missing = array();
   $files_to_check = array(
-    'rangy-core.js' => './sites/all/libraries/rangy/rangy-core.js',
-    'rangy-serializer.js' => './sites/all/libraries/rangy/rangy-serializer.js',
-    'rangy-cssclassapplier.js' => './sites/all/libraries/rangy/rangy-cssclassapplier.js',
-    'jquery.scrollTo.js' => './sites/all/libraries/jquery.scrollTo/jquery.scrollTo.js',
+    'rangy-core.js' => drupal_get_path('module', 'dynamic_comments') . '/js/rangy/rangy-core.js',
+    'rangy-serializer.js' => drupal_get_path('module', 'dynamic_comments') . '/js/rangy/rangy-serializer.js',
+    'rangy-cssclassapplier.js' => drupal_get_path('module', 'dynamic_comments') . '/js/rangy/rangy-cssclassapplier.js',
+    'jquery.scrollTo.js' => drupal_get_path('module', 'dynamic_comments') . '/js/jquery.scrollTo/jquery.scrollTo.js',
   );
 
   foreach ($files_to_check as $file_name => $file_path) {

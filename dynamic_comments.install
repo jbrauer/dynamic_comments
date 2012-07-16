@@ -35,13 +35,11 @@ function dynamic_comments_schema() {
         'description' => 'The comment body.',
         'type' => 'text',
         'size' => 'medium',
-        'default' => '',
       ),
       'range_position' => array(
         'description' => 'The comment position from rangy.',
         'type' => 'text',
         'size' => 'medium',
-        'default' => '',
       ),
       'uid' => array(
         'description' => 'User posting the comment.',
@@ -53,7 +51,6 @@ function dynamic_comments_schema() {
         'description' => 'The icon position serialized object.',
         'type' => 'text',
         'size' => 'medium',
-        'default' => '',
       ),
       'status' => array(
         'description' => 'Resolved (1) or unresolved (0).',

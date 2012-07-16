@@ -55,7 +55,7 @@ function dynamic_comments_permission() {
 /**
  * Implements hook_node_view().
  */
-function dynamic_comments_node_view($node, $view_mode = 'full') {
+function dynamic_comments_node_view($node, $view_mode, $langcode) {
   // Check current user's role and permissions to this review.
   if (user_access('use Dynamic Comments')) {
     // Get settings allowed node types.
@@ -74,17 +74,16 @@ function dynamic_comments_node_view($node, $view_mode = 'full') {
           global $base_url;
 
           // Adding rangy libraries.
-          if (file_exists('./sites/all/libraries/rangy')) {
-            $rangy_path = 'sites/all/libraries/rangy';
+          if (file_exists(drupal_get_path('module', 'dynamic_comments') . '/js/rangy')) {
+            $rangy_path = drupal_get_path('module', 'dynamic_comments') . '/js/rangy';
             drupal_add_js($rangy_path . '/rangy-core.js');
             drupal_add_js($rangy_path . '/rangy-serializer.js');
             drupal_add_js($rangy_path . '/rangy-cssclassapplier.js');
           }
 
           // Adding scrollTo libraries.
-          if (file_exists('./sites/all/libraries/jquery.scrollTo')) {
-            $scrollto_path = 'sites/all/libraries/jquery.scrollTo';
-            drupal_add_js($scrollto_path . '/jquery.scrollTo.js');
+          if (file_exists(drupal_get_path('module', 'dynamic_comments') . '/js/jquery.scrollTo')) {
+            drupal_add_js(drupal_get_path('module', 'dynamic_comments') . '/js/jquery.scrollTo' . '/jquery.scrollTo.js');
           }
 
           drupal_add_js(drupal_get_path('module', 'dynamic_comments') . '/js/dynamic_comments.js');
@@ -109,11 +108,6 @@ function dynamic_comments_node_view($node, $view_mode = 'full') {
     }
   }
 }
-
-/**
- * Implements hook_nodeapi().
- */
-function dynamic_comments_nodeapi_OLD(&$node, $op, $a3 = NULL, $a4 = NULL) { }
 
 /**
  * Custom function.

@@ -3,7 +3,7 @@
   /**
    * Theme functions
    */
-  Drupal.theme.prototype.dynamicCommentsSidebarHTML = function () {
+  Drupal.theme.prototype.dynamicCommentsSidebarHTML =  function () {
     var sidebar_HTML = '<div id="dynamic-comments-sidebar" class="dynamic-comments-sidebar">\n\
                           <div class="dynamic-comments-sidebar-messages">\n\
                           </div>\n\
@@ -12,12 +12,14 @@
                         </div>';
     return sidebar_HTML;
   };
+  
 
   Drupal.theme.prototype.dynamicCommentsIconsContainerHTML = function () {
     var icons_container_HTML = '<div class="dynamic-comments-icons">\n\
                                 </div>';
     return icons_container_HTML;
   }
+  
 
   Drupal.theme.prototype.dynamicCommentsCommentWindowHTML = function () {
     var comment_window_HTML = '<div id="current-dynamic-comments-window" class="dynamic-comments-window">\n\
@@ -30,6 +32,7 @@
                                </div>'
     return comment_window_HTML;
   }
+  
 
   Drupal.theme.prototype.dynamicCommentsCommentWindowHTMLSidebar = function () {
     var comment_window_HTML_sidebar = '<div id="current-dynamic-comments-window" class="dynamic-comments-window child">\n\
@@ -41,15 +44,17 @@
                                   </div>'
     return comment_window_HTML_sidebar;
   }
+
   
-  Drupal.theme.prototype.dynamicCommentsCommentObjIcon = function (commentObj) {
+  Drupal.theme.prototype.dynamicCommentsCommentObjIcon =  function (commentObj) {
     var icon     = '<span class="dynamic-comments-comment-icon" id="' + commentObj.cid + '" style="position:absolute; top:' + commentObj.position.top + 'px; left:' + commentObj.position.left + 'px;">';
         icon    += 'comment';
         icon    += '</span>';
     return icon;
   }
   
-  Drupal.theme.prototype.dynamicCommentsCommentObjHTML = function (commentObj, childClasses, resolvedClass) {
+  
+  Drupal.theme.prototype.dynamicCommentsCommentObjHTML =  function (commentObj, childClasses, resolvedClass) {
     var html     = '<div class="dynamic-comments-comment comment-' + commentObj.cid + ' ' + childClasses + ' ' + resolvedClass + '" id="' + commentObj.cid + '" resolved="' + commentObj.status + '">';
         html    += '<div class="dynamic-comments-comment-user">';
         html    += '<img src="/' + commentObj.user_picture + '" class="user-picture"/>';
@@ -71,8 +76,10 @@
         html    += '</div>';
     return html;
   }
+  
 
-  Drupal.behaviors.dynamic_comments = function(context) {
+  Drupal.behaviors.dynamic_comments = {
+    attach: function(context) {
 
     // bring module settings locally
     var nid               =   Drupal.settings.dynamic_comments.nid;
@@ -298,6 +305,7 @@
       return false;
     });
   }
+  }
 
   /*
    * Objects to be used in the implementation
@@ -309,7 +317,7 @@
   Drupal.behaviors.dynamic_comments.commentsArray = [];
 
   // object for current screen selection
-  // @TODO: figure out why selection doesn't go away when we set this to null'\
+  // @TODO: figure out why selection doesn't go away when we set this to null
   Drupal.behaviors.dynamic_comments.currentSelection = {};
 
   // object for css applier

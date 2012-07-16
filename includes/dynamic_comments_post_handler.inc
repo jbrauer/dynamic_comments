@@ -56,12 +56,9 @@ function dynamic_comments_post_handler() {
 
       $result = db_query('SELECT c.nid, c.cid, c.comment_body, c.range_position, c.uid, c.parent, c.position, c.status
                           FROM {dynamic_comments_comments} c
-                          WHERE c.nid = :c.nid', array(':c.nid' => $data['nid']));
+                          WHERE c.nid = :nid', array(':nid' => $data['nid']));
 
       while ($comment = db_fetch_object($result)) {
-        // TODO Convert "user_load" to "user_load_multiple" if "$comment->uid" is other than a uid.
-        // To return a single user object, wrap "user_load_multiple" with "array_shift" or equivalent.
-        // Example: array_shift(user_load_multiple(array(), $comment->uid))
         $user = user_load($comment->uid);
 
         // In case user pic isn't set, we provide a module default one.
